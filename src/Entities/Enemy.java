@@ -72,7 +72,7 @@ private int colorCode = (int) (Math.random() * 255 + 1);
 
 
 
-    }
+
 
 
 }
