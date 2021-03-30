@@ -37,7 +37,7 @@ private MusicManager musicManager;
 
 //Entities
 private Player player;
-ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -52,7 +52,9 @@ double h = screen.getHeight();
 
 
         timer = new Timer(30, this);
+        enemyTimer = new Timer(30, this);
         timer.start();
+        enemyTimer.start();
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -74,42 +76,62 @@ double h = screen.getHeight();
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);
         }
-
-        if(isRunning) {
-            switch (e.getKeyCode()) {
-
-//                case KeyEvent.VK_ENTER:
-//
-//                    isRunning = true;
-//                    break;
-
-                case KeyEvent.VK_SPACE:
-                    //shoot / attack
-                    break;
-
-                case KeyEvent.VK_W:
-                    //move up
-                    player.moveUp();
-                    break;
-
-                case KeyEvent.VK_S:
-                    //move charter down
-                    player.moveDown();
-                    break;
-
-                case KeyEvent.VK_D:
-                    player.moveRight();
-                    break;
-
-                case KeyEvent.VK_A:
-                    //move to left
-                    player.moveLeft();
-                    break;
-
-                case KeyEvent.VK_ESCAPE:
-                    System.exit(0);
-            }
+            //regular movement
+        if(e.getKeyCode() == KeyEvent.VK_W){
+            player.moveUp();
+        } if(e.getKeyCode() == KeyEvent.VK_D){
+            player.moveRight();
+        } if(e.getKeyCode() == KeyEvent.VK_A){
+            player.moveLeft();
+        } if(e.getKeyCode() == KeyEvent.VK_S) {
+            player.moveDown();
         }
+         //diagonal
+//        } if(e.getKeyCode() == KeyEvent.VK_W){
+//            if(e.getKeyCode() == KeyEvent.VK_D) {
+//                player.moveUp();
+//                player.moveRight();
+//            }
+//        }if(e.getKeyCode() == KeyEvent.VK_W && e.getKeyCode() == KeyEvent.VK_A){
+//            player.moveUp();
+//            player.moveLeft();
+//        }
+
+//        if(isRunning) {
+//            switch (e.getKeyCode()) {
+//
+////                case KeyEvent.VK_ENTER:
+////
+////                    isRunning = true;
+////                    break;
+//
+//                case KeyEvent.VK_SPACE:
+//                    //shoot / attack
+//                    break;
+//
+//                case KeyEvent.VK_W:
+//                    //move up
+//                    player.moveUp();
+//                    break;
+//
+//                case KeyEvent.VK_S:
+//                    //move charter down
+//                    player.moveDown();
+//                    break;
+//
+//                case KeyEvent.VK_D:
+//                    player.moveRight();
+//                    break;
+//
+//                case KeyEvent.VK_A:
+//                    //move to left
+//                    player.moveLeft();
+//                    break;
+//
+//                case KeyEvent.VK_ESCAPE:
+//                    System.exit(0);
+//            }
+//        }
     }
 
     @Override
@@ -122,6 +144,7 @@ double h = screen.getHeight();
         //TODO - initialise timer and Entities and the map
         if(isRunning){
            timer.start();
+
         }
     }
 
