@@ -70,21 +70,21 @@ public class Enemy extends JPanel {
     }
 
     //movement
-//    public void move(int x, int w){//moves side to side
-//        setX(x - w);
-//    }
-//    public void moveLeft(){//moves side to side
-//        setX(getX()-10);
-//    }
-//    public void moveRight(){//moves side to side
-//        setX(getX()+10);
-//    }
-//    public void moveDown(){//moves side to side
-//        setY(getY()+10);
-//    }
-//    public void moveUp(){
-//        setY((int) (getY()-10));
-//    }
+    public void move(int x, int w){//moves side to side
+        setX(x - w);
+    }
+    public void moveLeft(){//moves side to side
+        setX((int) (getX()-Math.random()* 10));
+    }
+    public void moveRight(){//moves side to side
+        setX((int) (getX()+Math.random()* 10));
+    }
+    public void moveDown(){//moves side to side
+        setY((int) (getY()+Math.random()* 10));
+    }
+    public void moveUp(){
+        setY((int) (getY()-Math.random()* 10));
+    }
 
 
     public String getFile() {

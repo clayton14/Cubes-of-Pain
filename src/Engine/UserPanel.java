@@ -1,5 +1,6 @@
 package Engine;
 
+import Entities.Enemy;
 import Entities.Player;
 import Map.Ground;
 import Map.Wall;
@@ -11,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener, Runnable {
 
@@ -34,15 +37,19 @@ private MusicManager musicManager;
 
 //Entities
 private Player player;
+ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 double w = screen.getWidth();
 double h = screen.getHeight();
 
+
     public UserPanel() {
         setBackground(Color.BLACK);
         player = new Player("default.png");
+
+
 
         timer = new Timer(30, this);
         timer.start();
