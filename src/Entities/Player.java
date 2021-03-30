@@ -20,6 +20,8 @@ public class Player extends JPanel {
 //constructors
     public Player (String imgName, int x, int y){ //sets cords
        file = new File(imgName);
+       this.x = x;
+       this.y = y;
         charter = null;
         try {
             charter = ImageIO.read(new File(file.getAbsolutePath()));

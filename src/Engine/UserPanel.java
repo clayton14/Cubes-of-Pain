@@ -44,12 +44,17 @@ Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 double w = screen.getWidth();
 double h = screen.getHeight();
 
+//rand spawn player
+// private int pRandx = (int) (Math.random() * (int) w)- 15;
+//private int pRandy = (int) (Math.random() * (int) w) - 15;
+
+
+//rand spawn Eneny
 
     public UserPanel() {
         setBackground(Color.BLACK);
         player = new Player("default.png");
-
-
+      //  player = new Player("default.png",pRandx,pRandx);
 
         timer = new Timer(30, this);
         enemyTimer = new Timer(30, this);
@@ -77,15 +82,15 @@ double h = screen.getHeight();
                 System.exit(0);
         }
             //regular movement
-        if(e.getKeyCode() == KeyEvent.VK_W){
-            player.moveUp();
-        } if(e.getKeyCode() == KeyEvent.VK_D){
-            player.moveRight();
-        } if(e.getKeyCode() == KeyEvent.VK_A){
-            player.moveLeft();
-        } if(e.getKeyCode() == KeyEvent.VK_S) {
-            player.moveDown();
-        }
+//        if(e.getKeyCode() == KeyEvent.VK_W){
+//            player.moveUp();
+//        } if(e.getKeyCode() == KeyEvent.VK_D){
+//            player.moveRight();
+//        } if(e.getKeyCode() == KeyEvent.VK_A){
+//            player.moveLeft();
+//        } if(e.getKeyCode() == KeyEvent.VK_S) {
+//            player.moveDown();
+//        }
          //diagonal
 //        } if(e.getKeyCode() == KeyEvent.VK_W){
 //            if(e.getKeyCode() == KeyEvent.VK_D) {
@@ -97,61 +102,61 @@ double h = screen.getHeight();
 //            player.moveLeft();
 //        }
 
-//        if(isRunning) {
-//            switch (e.getKeyCode()) {
+        if(isRunning) {
+            switch (e.getKeyCode()) {
+
+//                case KeyEvent.VK_ENTER:
 //
-////                case KeyEvent.VK_ENTER:
-////
-////                    isRunning = true;
-////                    break;
-//
-//                case KeyEvent.VK_SPACE:
-//                    //shoot / attack
+//                    isRunning = true;
 //                    break;
-//
-//                case KeyEvent.VK_W:
-//                    //move up
-//                    player.moveUp();
-//                    break;
-//
-//                case KeyEvent.VK_S:
-//                    //move charter down
-//                    player.moveDown();
-//                    break;
-//
-//                case KeyEvent.VK_D:
-//                    player.moveRight();
-//                    break;
-//
-//                case KeyEvent.VK_A:
-//                    //move to left
-//                    player.moveLeft();
-//                    break;
-//
-//                case KeyEvent.VK_ESCAPE:
-//                    System.exit(0);
-//            }
-//        }
+
+                case KeyEvent.VK_SPACE:
+                    //shoot / attack
+                    break;
+
+                case KeyEvent.VK_W:
+                    //move up
+                    player.moveUp();
+                    break;
+
+                case KeyEvent.VK_S:
+                    //move charter down
+                    player.moveDown();
+                    break;
+
+                case KeyEvent.VK_D:
+                    player.moveRight();
+                    break;
+
+                case KeyEvent.VK_A:
+                    //move to left
+                    player.moveLeft();
+                    break;
+
+                case KeyEvent.VK_ESCAPE:
+                    System.exit(0);
+            }
+        }
     }
 
     @Override
     public boolean running() {
-        return isRunning = true;
+        if(isRunning){
+            timer.start();
+            return true;
+        }else
+            return false;
     }
 
     @Override
     public void startGame() {
-        //TODO - initialise timer and Entities and the map
-        if(isRunning){
-           timer.start();
-
-        }
+         isRunning = true;
     }
 
 
     @Override
     public String getGameName() {
-        return "Game";
+        return "Cubes-of-Pain";
     }
 
     @Override
@@ -179,6 +184,7 @@ double h = screen.getHeight();
     @Override
     public void stopGame() {
         isRunning = false;
+
     }
 
     @Override
