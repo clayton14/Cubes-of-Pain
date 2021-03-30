@@ -45,8 +45,8 @@ double w = screen.getWidth();
 double h = screen.getHeight();
 
 //rand spawn player
-// private int pRandx = (int) (Math.random() * (int) w)- 15;
-//private int pRandy = (int) (Math.random() * (int) w) - 15;
+ private int pRandx = (int) (Math.random() * (int) w) / 3;
+private int pRandy = (int) (Math.random() * (int) w) / 3;
 
 
 //rand spawn Eneny
@@ -54,7 +54,7 @@ double h = screen.getHeight();
     public UserPanel() {
         setBackground(Color.BLACK);
         player = new Player("default.png");
-      //  player = new Player("default.png",pRandx,pRandx);
+        player = new Player("default.png",pRandx,pRandx);
 
         timer = new Timer(30, this);
         enemyTimer = new Timer(30, this);

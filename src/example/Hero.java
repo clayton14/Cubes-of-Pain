@@ -34,7 +34,7 @@ public class Hero extends Shooter {
       g.fillRect(getX()-5,getY(),10,getHeight()+10);
       g.fillRect(getX(),getY(),getWidth(),getHeight());
       g.fillRect(getX()+getWidth(), getY(), 10, getHeight()+10);
-      g.setColor(new Color(0,255,0));            
+      g.setColor(new Color(0,255,000));
    
       g.drawLine(getX(), getY(), getWidth()/2+getX(), getY()-10);
       g.drawLine(getX()+getWidth()/2, getY()-10, getWidth()+getX(), getY());

@@ -11,37 +11,22 @@ public class Enemy extends JPanel {
 
 
     //image stuff
-    private Image enemy;
-    private File file;
     //cords
-    private int x,y;
-    private int speed = 10;
+private int x,y;
+private int speed = 10;
+Color color;
+
+//random stuff
+private int colorCode = (int) (Math.random() * 255 + 1);
 
 
     //constructors
-    public Enemy (String imgName, int x, int y){ //sets cords
-        file = new File(imgName);
-        enemy = null;
-        try {
-            enemy = ImageIO.read(new File(file.getAbsolutePath()));
-        } catch (IOException e) {
-            System.err.println("could not find player model");
-            e.printStackTrace();
-        }
+    public Enemy (String imgName, int x, int y, Color color){ //sets cords
+        this.x = x;
+        this.y = y;
+        color = color;
     }
 
-
-    public Enemy (String imgName){ //cords
-        file = new File(imgName);
-        enemy = null;
-        try {
-            enemy = ImageIO.read(new File(file.getAbsolutePath()));
-        } catch (IOException e) {
-            System.err.println("could not find player model");
-            e.printStackTrace();
-        }
-
-    }
 
 
 //getters
@@ -65,8 +50,7 @@ public class Enemy extends JPanel {
     public void draw(Graphics g){
 
         Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(enemy, getX(), getY(),this);
-        // g.drawRect(getX(), getY(), 10, 10);
+         g.drawRect(getX(), getY(), 10, 10);
     }
 
     //movement
@@ -87,8 +71,7 @@ public class Enemy extends JPanel {
     }
 
 
-    public String getFile() {
-        return file.getAbsolutePath();
+
     }
 
 
