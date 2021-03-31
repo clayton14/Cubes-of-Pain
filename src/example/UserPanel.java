@@ -20,25 +20,18 @@ import java.awt.event.*;
 
 public class UserPanel extends JPanel implements KeyListener, ActionListener
 {
-      
    int points;
    private Hero myHero; //active Hero
-	 
    private javax.swing.Timer timer; //controls how often we updated the x, y pos of enemies and how often we repaint
    private javax.swing.Timer enemyTimer; //controls how often our points value change
-   
    private Enemy enemyFast, enemySlow;  //two enemies: one will move fast, one slow
-    
    private boolean start = false; 
-
 
 
    public UserPanel (int width, int height) {
     Color backColor=Color.black;
     int heroHeight, heroWidth, enemyWidth, enemyHeight, enemyX, enemyY;
-    
     //Make hero proportional to height/width of panel.
-    
     heroHeight = height / 22;  
     heroWidth = width / 27;
     
@@ -48,29 +41,22 @@ public class UserPanel extends JPanel implements KeyListener, ActionListener
     points = 0;
     
 	  myHero = new Hero(10, height*4/5, heroWidth, heroHeight, Color.green);
-	  
 	  myHero.activate();
     
   	  		  	     	         
       //Status check every 50 milliseconds
       timer = new javax.swing.Timer(50, this);
-     
       //Timer invoked every 3 seconds, just a demo of using 2 timers - currently points value decrease
       enemyTimer = new javax.swing.Timer(3000, new EnemyAnimationListener());
      
       addKeyListener(this);//used for key controls
       addMouseMotionListener(new PanelMotionListener()); //used to listen to mouse events
-      
       setFocusable(true);
       setFocusTraversalKeysEnabled(false);      
       setBackground(backColor);
-	   
-	    setPreferredSize(new Dimension(width, height));
-
-      
+	  setPreferredSize(new Dimension(width, height));
    }
-   
-    
+
 	  public void actionPerformed (ActionEvent e){ //invoked when timer expires every 5ms
    	  	  checkStats();
 	    	  repaint(); //ensures PaintComponent is called
@@ -79,8 +65,7 @@ public class UserPanel extends JPanel implements KeyListener, ActionListener
  
  //Because we implemented KeyListener interface, we must define these key methods
   public void keyTyped(KeyEvent e) { }
-  public void keyReleased(KeyEvent e) { }  
-  
+  public void keyReleased(KeyEvent e) { }
   public void keyPressed(KeyEvent e){
    
 	    switch(e.getKeyCode())
@@ -130,7 +115,6 @@ public class UserPanel extends JPanel implements KeyListener, ActionListener
     }
 
    //draws everything
-    
    public void paintComponent(Graphics g){
   
       super.paintComponent(g); //a call to JPanel's paintComponent	  		   
@@ -150,10 +134,7 @@ public class UserPanel extends JPanel implements KeyListener, ActionListener
 	  	g.drawString("(Inactive) Press enter to shoot .", (getWidth() /2) - 100, getHeight()/2 + 40);
 	  	g.drawString("You have 3 lives to kill the enemy", (getWidth() /2) - 100, getHeight()/2+ 60);
 	  }
-    
-    
-	 
-	  
+
 	  
   } 
 	 

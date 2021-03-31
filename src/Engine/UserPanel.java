@@ -1,19 +1,13 @@
 package Engine;
 
-import Entities.Enemy;
+import Entities.EnemySquare;
 import Entities.Player;
-import Map.Ground;
-import Map.Wall;
 import sounds.MusicManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener, Runnable {
 
@@ -37,7 +31,9 @@ private MusicManager musicManager;
 
 //Entities
 private Player player;
-private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+//private ArrayList<EnemySquare> enemySquare = new ArrayList<EnemySquare>();
+
+ EnemySquare enemySquare = new EnemySquare(100, 100, Color.GREEN);
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -45,7 +41,7 @@ double w = screen.getWidth();
 double h = screen.getHeight();
 
 //rand spawn player
- private int pRandx = (int) (Math.random() * (int) w) / 3;
+private int pRandx = (int) (Math.random() * (int) w) / 3;
 private int pRandy = (int) (Math.random() * (int) w) / 3;
 
 
@@ -53,16 +49,24 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
 
     public UserPanel() {
         setBackground(Color.BLACK);
-        player = new Player("default.png");
-        player = new Player("default.png",pRandx,pRandx);
+        //player = new Player("default.png");
+        player.setSpeed(10);
+        player = new Player("default.png",pRandx,pRandy);
 
         timer = new Timer(30, this);
         enemyTimer = new Timer(30, this);
         timer.start();
         enemyTimer.start();
         addKeyListener(this);
+        addMouseMotionListener(new PanelMotionListener()); //used to listen to mouse events
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+
+//        for (int i = 0; i < enemySquare.size(); i++) {
+//            enemySquare.add(new EnemySquare());
+//        }
+
+
     }
 
 
@@ -138,55 +142,46 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
             }
         }
     }
-
     @Override
     public boolean running() {
         if(isRunning){
             timer.start();
             return true;
-        }else
+        }else {
             return false;
+        }
     }
-
     @Override
     public void startGame() {
          isRunning = true;
     }
-
-
     @Override
     public String getGameName() {
         return "Cubes-of-Pain";
     }
-
     @Override
     public void pauseGame() {
       isRunning = false;
     }
-
     @Override
     public String getInstructions() {
         return "movement: WASD\nAttack: space\nEsc: close game";
     }
-
     @Override
     public String getCredits() {
         return "Graphics Designer: Clayton Easley\n" +
                 "Music by: Clayton Easley\n" +
                 "Dev: Clayton Easley";
     }
-
     @Override
     public String getHighScore() {
         return highScore + "";
     }
-
     @Override
     public void stopGame() {
         isRunning = false;
 
     }
-
     @Override
     public int getPoints() {
         return currentScore;
@@ -197,20 +192,32 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
 
     }
 
-
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         player.draw(g);
+        enemySquare.draw(g);
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) { }
     public void keyTyped(KeyEvent keyEvent) {}
-
-
     //thread for sound if needed
     @Override
     public void run() {
 
     }
+//allows you to drag charter
+    private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
+
+        public void mouseDragged(MouseEvent e){
+				/*if(start==true) //don't allow hero to move if not started
+         myHero.move(e.getX(), myHero.getWidth());*/
+            //Component object1;
+            if(isRunning == true){
+                player.move2(e.getY(), player.getWidth());
+               player.move1(e.getX(), player.getHeight());
+            }
+        }
+    }
+
 }

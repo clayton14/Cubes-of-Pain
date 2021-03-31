@@ -64,27 +64,30 @@ public class Player extends JPanel {
     }
 
     public void draw(Graphics g){
-
+        super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(charter, getX(), getY(), this);
       // g.drawRect(getX(), getY(), 10, 10);
     }
 
 //movement
-//    public void move(int x, int w){//moves side to side
-//        setX(x - w);
-//    }
+    public void move1(int y, int w){//moves side to side
+        setX(y - w);
+    }
+    public void move2(int x, int w){//moves side to side
+        setY(x - w);
+    }
     public void moveLeft(){//moves side to side
-        setX(getX()-10);
+        setX(getX()-speed);
     }
     public void moveRight(){//moves side to side
-        setX(getX()+10);
+        setX(getX()+speed);
     }
     public void moveDown(){//moves side to side
-        setY(getY()+10);
+        setY(getY()+speed);
     }
     public void moveUp(){
-        setY((int) (getY()-10));
+        setY((int) (getY()-speed));
     }
 
 
