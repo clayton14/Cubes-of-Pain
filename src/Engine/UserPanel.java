@@ -50,9 +50,9 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public UserPanel() {
         setBackground(Color.BLACK);
         //player = new Player("default.png");
-        player.setSpeed(10);
-        player = new Player("default.png",pRandx,pRandy);
 
+        player = new Player("default.png",pRandx,pRandy);
+        player.setSpeed(10);
         timer = new Timer(30, this);
         enemyTimer = new Timer(30, this);
         timer.start();
@@ -72,11 +72,14 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
 
     public void actionPerformed(ActionEvent e) {
         repaint();
+        checkCollision();
     }
 
     public void checkCollision(){
         //TODO - if player intersects enemy end game
-
+        if(player.getBounds().intersects(enemySquare.getBounds())){
+            isRunning = false;
+        }
     }
 
     // control player and actions w/ keyboard

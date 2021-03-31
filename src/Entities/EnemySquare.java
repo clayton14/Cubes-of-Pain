@@ -47,6 +47,12 @@ private int colorCode = (int) (Math.random() * 255 + 1);
     public int getY() {
         return y;
     }
+    public int getW() {
+        return w;
+    }
+    public int getH() {
+        return h;
+    }
 
     //setters
     public void setX(int x) { this.x = x; }
@@ -56,19 +62,31 @@ private int colorCode = (int) (Math.random() * 255 + 1);
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    public void setW(int w) {
+        this.w = w;
+    }
+    public void setH(int h) {
+        this.h = h;
+    }
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    public void setColorCode(int colorCode) {
+        this.colorCode = colorCode;
+    }
 
     public void draw(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         g.setColor(color);
-        g.drawRect(getX(), getY(), 10, 10);
-
+        g.fillRect(getX(), getY(), w, h);
     }
+
 
     //movement
-    public void move(int x, int w){//moves side to side
-        setX(x - w);
-    }
+//    public void move(int x, int w){//moves side to side
+//        setX(x - w);
+//    }
 //    public void moveLeft(){//moves side to side
 //        setX((int) (getX()-Math.random()* 10));
 //    }
