@@ -68,9 +68,14 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
         repaint();
     }
 
+
     public void checkCollision(){
         //TODO - if player intersects enemy end game
-        if(player.getBounds().intersects(enemySquare.getBounds())){
+
+        Rectangle e = enemySquare.getBounds();
+        Rectangle p = player.getBounds();
+
+        if (p.intersects(e)){
             isRunning = false;
         }
     }

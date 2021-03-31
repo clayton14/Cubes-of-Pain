@@ -10,10 +10,11 @@ import java.io.IOException;
 public class Player extends JPanel {
 
     //image stuff
-    private BufferedImage charter;
+    private Image charter;
     private File file;
     //cords
-    private int x,y,w,h;
+    private int x,y,w =20 ,h = 80;
+
     private int speed = 10;
 
 
@@ -29,6 +30,8 @@ public class Player extends JPanel {
             System.err.println("could not find player model");
             e.printStackTrace();
         }
+
+
     }
 
 
@@ -41,19 +44,22 @@ public class Player extends JPanel {
             System.err.println("could not find player model");
             e.printStackTrace();
         }
-
     }
 
 
-//getters
-
+    //getters
     public int getX() {
         return x;
     }
     public int getY() {
         return y;
     }
-
+    public int getWith() {
+        return w;
+    }
+    public int getHeight() {
+        return h;
+    }
 
     //setters
     public void setX(int x) { this.x = x; }
@@ -64,11 +70,11 @@ public class Player extends JPanel {
         this.speed = speed;
     }
 
+
     public void draw(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(charter, getX(), getY(), this);
-      // g.drawRect(getX(), getY(), 10, 10);
     }
 
 //movement
@@ -88,12 +94,12 @@ public class Player extends JPanel {
         setY(getY()+speed);
     }
     public void moveUp(){
-        setY((int) (getY()-speed));
+        setY((getY()-speed));
     }
 
 
-    public String getFile() {
-        return file.getAbsolutePath();
+    public Rectangle getBounds(){
+        return (new Rectangle(x,y,w,h));
     }
 
 
