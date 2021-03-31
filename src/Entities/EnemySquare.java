@@ -22,7 +22,7 @@ Color color;
 
 
     //constructors
-    public EnemySquare(int x, int y, int w, int h, Color color){ //sets cords
+    public EnemySquare( Color color, int x, int y, int w, int h){ //sets cords
         this.x = x;
         this.y = y;
         this.w = w;

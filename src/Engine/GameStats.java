@@ -17,7 +17,7 @@ public class GameStats extends JPanel
   {
     super(new GridLayout(2, 4, 10, 0));
     setBorder(new EmptyBorder(0, 0, 5, 0));
-    Font gameNameFont = new Font("Monospaced", Font.BOLD, 24);
+    Font gameNameFont = new Font("Sans", Font.BOLD, 28);
 
     JLabel gName = new JLabel(" " + t.getGameName());
     

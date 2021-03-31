@@ -27,9 +27,9 @@ private MusicManager musicManager;
 //Entities
 private Player player;
 
-//private ArrayList<EnemySquare> enemySquare = new ArrayList<EnemySquare>();
+private ArrayList<EnemySquare> enemySquare = new ArrayList<EnemySquare>();
 
- EnemySquare enemySquare = new EnemySquare(100, 100, 10,80, Color.GREEN);
+ //EnemySquare enemySquare = new EnemySquare(100, 100, 10,80, Color.GREEN);
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,6 +46,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public UserPanel() {
         setBackground(Color.BLACK);
         //player = new Player("default.png");
+        enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
 
         player = new Player("default.png",pRandx,pRandy);
         player.setSpeed(10);
@@ -64,19 +65,21 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
 
 
     public void actionPerformed(ActionEvent e) {
-        checkCollision();
+        if(checkCollision()){
+            isRunning = false;
+        }
         repaint();
     }
-
-
-    public void checkCollision(){
+    public boolean checkCollision() {
         //TODO - if player intersects enemy end game
 
-        Rectangle e = enemySquare.getBounds();
+        Rectangle e = enemySquare.get(0).getBounds();
         Rectangle p = player.getBounds();
 
         if (p.intersects(e)){
-            isRunning = false;
+           return true;
+        }else {
+            return false;
         }
     }
 
@@ -84,7 +87,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         player.draw(g);
-        enemySquare.draw(g);
+        enemySquare.get(0).draw(g);
     }
 
 
@@ -175,7 +178,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
     @Override
     public String getInstructions() {
-        return "movement: WASD\nAttack: space\nEsc: close game";
+        return "movement: WASD\nAttack: space\nEsc: close game\n\nDOGE THE SQUARES";
     }
     @Override
     public String getCredits() {
@@ -193,14 +196,18 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
     @Override
     public int getPoints() {
+        if(isRunning) {
+            currentScore += player.getX() / 4 * Math.sqrt( getY());
+        }
         return currentScore;
     }
 
     @Override
     public void setDisplay(GameStats d) {
+        if(isRunning){
+            d.update(getPoints());
+        }
     }
-
-
 
     @Override
     public void keyReleased(KeyEvent keyEvent) { }
@@ -210,13 +217,12 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public void run() {
 
     }
-//allows you to drag charter
+
+//allows you to drag charter copied from example
     private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
 
         public void mouseDragged(MouseEvent e){
-				/*if(start==true) //don't allow hero to move if not started
-         myHero.move(e.getX(), myHero.getWidth());*/
-            //Component object1;
+
             if(isRunning == true){
                 player.move2(e.getY(), player.getWidth());
                player.move1(e.getX(), player.getHeight());
