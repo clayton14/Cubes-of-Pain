@@ -64,6 +64,8 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
 
 
+
+
     public void actionPerformed(ActionEvent e) {
         if(checkCollision()){
             isRunning = false;
@@ -154,11 +156,10 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
             }
         }
     }
+
     @Override
     public boolean running() {
         if(isRunning){
-            timer.start();
-            enemyTimer.start();
             return true;
         }else {
             return false;
@@ -167,6 +168,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     @Override
     public void startGame() {
          isRunning = true;
+         timer.start();
     }
     @Override
     public String getGameName() {
@@ -193,6 +195,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     @Override
     public void stopGame() {
         isRunning = false;
+        timer.stop();
     }
     @Override
     public int getPoints() {

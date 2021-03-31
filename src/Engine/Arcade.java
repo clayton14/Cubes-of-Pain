@@ -44,7 +44,7 @@ public class Arcade extends JFrame
 
     Arcade window = new Arcade();
     //window.setBounds(0, 0, (int)w, (int)h);
-   // window.setBounds(10, 10, 600, 600);
+    // window.setBounds(10, 10, 600, 600);
     gD.setFullScreenWindow(window);
     window.setDefaultCloseOperation(EXIT_ON_CLOSE);
     window.setVisible(true);

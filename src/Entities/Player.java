@@ -34,7 +34,6 @@ public class Player extends JPanel {
 
     }
 
-
     public Player (String imgName){ //cords
         file = new File(imgName);
         charter = null;
