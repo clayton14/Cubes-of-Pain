@@ -18,13 +18,15 @@ private int speed = 10;
 Color color;
 
 //random stuff
-private int colorCode = (int) (Math.random() * 255 + 1);
+//private int colorCode = (int) (Math.random() * 255 + 1);
 
 
     //constructors
-    public EnemySquare(int x, int y, Color color){ //sets cords
+    public EnemySquare(int x, int y, int w, int h, Color color){ //sets cords
         this.x = x;
         this.y = y;
+        this.w = w;
+        this.h = h;
         this.color = color;
     }
     public EnemySquare(){ //sets cords
@@ -71,9 +73,7 @@ private int colorCode = (int) (Math.random() * 255 + 1);
     public void setColor(Color color) {
         this.color = color;
     }
-    public void setColorCode(int colorCode) {
-        this.colorCode = colorCode;
-    }
+    public void setColorCode(int colorCode) {}
 
     public void draw(Graphics g){
         super.paint(g);

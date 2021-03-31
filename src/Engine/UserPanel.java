@@ -15,11 +15,6 @@ private boolean isRunning = false;
 private int currentScore;
 private int highScore;
 
-
-//map fields idk will be implemented later
-//private Wall wall;
-//private Ground ground;
-
 //timers
 private Timer timer;
 private Timer enemyTimer;
@@ -31,9 +26,10 @@ private MusicManager musicManager;
 
 //Entities
 private Player player;
+
 //private ArrayList<EnemySquare> enemySquare = new ArrayList<EnemySquare>();
 
- EnemySquare enemySquare = new EnemySquare(100, 100, Color.GREEN);
+ EnemySquare enemySquare = new EnemySquare(100, 100, 10,80, Color.GREEN);
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,22 +53,19 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
         enemyTimer = new Timer(30, this);
         timer.start();
         enemyTimer.start();
+
+        //listeners
         addKeyListener(this);
         addMouseMotionListener(new PanelMotionListener()); //used to listen to mouse events
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
 
-//        for (int i = 0; i < enemySquare.size(); i++) {
-//            enemySquare.add(new EnemySquare());
-//        }
-
-
     }
 
 
     public void actionPerformed(ActionEvent e) {
-        repaint();
         checkCollision();
+        repaint();
     }
 
     public void checkCollision(){
@@ -81,6 +74,14 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
             isRunning = false;
         }
     }
+
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        player.draw(g);
+        enemySquare.draw(g);
+    }
+
 
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
@@ -149,6 +150,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public boolean running() {
         if(isRunning){
             timer.start();
+            enemyTimer.start();
             return true;
         }else {
             return false;
@@ -183,7 +185,6 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     @Override
     public void stopGame() {
         isRunning = false;
-
     }
     @Override
     public int getPoints() {
@@ -192,14 +193,9 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
 
     @Override
     public void setDisplay(GameStats d) {
-
     }
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        player.draw(g);
-        enemySquare.draw(g);
-    }
+
 
     @Override
     public void keyReleased(KeyEvent keyEvent) { }
