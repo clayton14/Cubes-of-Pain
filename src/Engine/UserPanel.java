@@ -91,6 +91,12 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
 
 
+    public void calcPoint(){
+        if(isRunning = true){
+            currentScore = timer.getInitialDelay();
+        }
+    }
+
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
@@ -167,6 +173,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public void startGame() {
          isRunning = true;
          timer.start();
+
     }
     @Override
     public String getGameName() {
@@ -197,6 +204,9 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public void stopGame() {
         isRunning = false;
         timer.stop();
+        //clear enemies
+        player.setX(pRandx);
+        player.setY(pRandy);
     }
     @Override
     public int getPoints() {
@@ -221,9 +231,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
 
 //allows you to drag charter copied from example
     private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
-
         public void mouseDragged(MouseEvent e){
-
             if(isRunning == true){
                 player.move2(e.getY(), player.getWidth());
                player.move1(e.getX(), player.getHeight());
