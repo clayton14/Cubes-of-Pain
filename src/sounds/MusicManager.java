@@ -1,6 +1,6 @@
 package sounds;
 
-import example.ImageEnemy;
+
 
 import javax.sound.sampled.*;
 import javax.swing.*;

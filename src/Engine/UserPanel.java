@@ -12,8 +12,9 @@ import java.util.ArrayList;
 public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener, Runnable {
 
 private boolean isRunning = false;
+
 int currentScore;
-private int highScore;
+int highScore;
 
 //timers
 private Timer timer;
@@ -55,7 +56,7 @@ double h = screen.getHeight();
         player = new Player("default.png",pRandx,pRandy);
         player.setSpeed(10);
         timer = new Timer(30, this);
-        enemyTimer = new Timer(30, this);
+        enemyTimer = new Timer(30, new EnemyAnimationListener());
 
 
         timer.start();
@@ -74,11 +75,11 @@ double h = screen.getHeight();
         if(checkCollision()){
             isRunning = false;
         }
-
         repaint();
         //currentScore++;
-       enemySquare.get(0).bounce();
     }
+
+
 
     //if player intersects enemy end game
     public boolean checkCollision() {
@@ -140,7 +141,7 @@ double h = screen.getHeight();
     public void startGame() {
          isRunning = true;
          timer.start();
-
+         enemyTimer.start();
     }
     @Override
     public String getGameName() {
@@ -171,6 +172,7 @@ double h = screen.getHeight();
     public void stopGame() {
         isRunning = false;
         timer.stop();
+        enemyTimer.stop();
         //clear enemies
         //reset random location
         player.setX((int) (Math.random() * (int) w) / 2);
@@ -206,5 +208,17 @@ double h = screen.getHeight();
             }
         }
     }
+
+//listener for enemy
+private class EnemyAnimationListener implements ActionListener{
+
+    //Because we are implementing ActionListener, we must define actionPerformed
+    public void actionPerformed (ActionEvent e){
+        if (isRunning) {
+            enemySquare.get(0).bounce();
+        }
+    }
+}
+
 
 }
