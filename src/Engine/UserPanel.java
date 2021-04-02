@@ -13,7 +13,7 @@ public class UserPanel extends JPanel implements JavaArcade, KeyListener, Action
 
 private boolean isRunning = false;
 
-int currentScore;
+int points;
 int highScore;
 
 //timers
@@ -45,7 +45,7 @@ double h = screen.getHeight();
         int pRandx = (int) (Math.random() * (int) w) / 3;
         int pRandy = (int) (Math.random() * (int) h) / 3;
 
-        currentScore = 0;
+        points = 0;
 
         setBackground(Color.black);
         enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
@@ -76,7 +76,7 @@ double h = screen.getHeight();
             isRunning = false;
         }
         repaint();
-        //currentScore++;
+        points++;
     }
 
 
@@ -163,8 +163,8 @@ double h = screen.getHeight();
     }
     @Override
     public String getHighScore() {
-        if(currentScore > highScore){
-            highScore = currentScore;
+        if(points > highScore){
+            highScore = points;
         }
             return highScore + "";
     }
@@ -180,7 +180,7 @@ double h = screen.getHeight();
     }
     @Override
     public int getPoints() {
-        return currentScore;
+        return points;
     }
     @Override
     public void setDisplay(GameStats d) {
@@ -216,6 +216,7 @@ private class EnemyAnimationListener implements ActionListener{
     public void actionPerformed (ActionEvent e){
         if (isRunning) {
             enemySquare.get(0).bounce();
+            points++;
         }
     }
 }

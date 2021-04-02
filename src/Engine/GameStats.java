@@ -20,7 +20,7 @@ public class GameStats extends JPanel
     Font gameNameFont = new Font("Sans", Font.BOLD, 28);
 
     JLabel gName = new JLabel(" " + t.getGameName());
-    
+
     gName.setForeground(Color.red);
     gName.setFont(gameNameFont);
  	  add(gName);
@@ -34,7 +34,8 @@ public class GameStats extends JPanel
     add(yourScoreText);
     Font displayFont = new Font("Monospaced", Font.BOLD, 16);
     game = t;
-    
+
+
      }
 
   public void update(int points)

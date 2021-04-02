@@ -62,7 +62,7 @@ public class ControlPanel extends JPanel
        
        ((JPanel)(game)).requestFocus(); //need to provide the JPanel focus
        game.startGame();
-			 gStats.update(0);
+			 gStats.update(game.getPoints());
     	 gStats.repaint();       
       }
     }
