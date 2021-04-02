@@ -64,8 +64,6 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
 
 
-
-
     public void actionPerformed(ActionEvent e) {
         if(checkCollision()){
             isRunning = false;
@@ -180,7 +178,7 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
     @Override
     public String getInstructions() {
-        return "movement: WASD\nAttack: space\nEsc: close game\n\nDOGE THE SQUARES";
+        return "movement: WASD\nAttack: space\nEsc: close game\nDOGE THE SQUARES";
     }
     @Override
     public String getCredits() {
@@ -190,7 +188,10 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
     @Override
     public String getHighScore() {
-        return highScore + "";
+        if(currentScore > highScore){
+            highScore = currentScore;
+        }
+            return highScore + "";
     }
     @Override
     public void stopGame() {
@@ -199,9 +200,6 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
     @Override
     public int getPoints() {
-        if(isRunning) {
-            currentScore += player.getX() / 4 * Math.sqrt( getY());
-        }
         return currentScore;
     }
 
