@@ -8,7 +8,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public class EnemySquare extends JPanel  {
+public class EnemySquare extends Enemy  {
 
 
     //cords
@@ -16,7 +16,6 @@ private int x,y,w,h;
 private int direction;
 private static int panelWidth;
 private int speed = 10;
-
 private static Color color;
 
 //random color

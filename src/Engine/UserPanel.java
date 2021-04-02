@@ -93,6 +93,7 @@ double h = screen.getHeight();
         super.paintComponent(g);
         player.draw(g);
         enemySquare.get(0).draw(g);
+        //getPoints();
     }
 
 
@@ -186,6 +187,7 @@ double h = screen.getHeight();
     public void setDisplay(GameStats d) {
         if(isRunning){
             d.update(getPoints());
+
         }
     }
 
