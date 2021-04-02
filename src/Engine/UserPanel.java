@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener, Runnable {
 
 private boolean isRunning = false;
-private int currentScore;
+int currentScore;
 private int highScore;
 
 //timers

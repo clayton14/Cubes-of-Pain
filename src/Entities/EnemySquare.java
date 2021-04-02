@@ -90,6 +90,7 @@ private static Color color;
     public void bounce(){
         int xVal = getX();
 
+
         if(xVal + getWidth() > panelWidth){  //include getWidth() so we bounce off on the right edge
 
             direction=0; //negative;
