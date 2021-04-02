@@ -12,9 +12,11 @@ public class EnemySquare extends JPanel {
 
     //cords
 private int x,y,w,h;
-
+private int direction;
+private static int panelWidth;
 private int speed = 10;
-Color color;
+
+private static Color color;
 
 //random color
 //private int colorCode = (int) (Math.random() * 255 + 1);
@@ -54,6 +56,9 @@ Color color;
     public int getH() {
         return h;
     }
+    public void setPanelWidth(int pWidth) {
+       panelWidth = pWidth;
+    }
 
     //setters
     public void setX(int x) { this.x = x; }
@@ -79,6 +84,30 @@ Color color;
         Graphics2D g2d = (Graphics2D)g;
         g.setColor(color);
         g.fillRect(getX(), getY(), w, h);
+    }
+
+
+    public void bounce(){
+        int xVal = getX();
+
+        if(xVal + getWidth() > panelWidth){  //include getWidth() so we bounce off on the right edge
+
+            direction=0; //negative;
+            xVal-=speed;
+        }
+        else if(xVal < 0){
+
+            xVal+=speed;
+            direction = 1; //positive
+        }
+        else
+        {
+            if(direction == 1)
+                xVal+=speed;
+            else
+                xVal-=speed;
+        }
+        setX(xVal);
     }
 
 

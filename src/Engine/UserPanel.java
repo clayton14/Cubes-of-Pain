@@ -37,23 +37,27 @@ Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 double w = screen.getWidth();
 double h = screen.getHeight();
 
-//rand spawn player
-private int pRandx = (int) (Math.random() * (int) w) / 3;
-private int pRandy = (int) (Math.random() * (int) h) / 3;
-
-
+//rand spawn playe
 //rand spawn Eneny
 
     public UserPanel() {
+        int pRandx = (int) (Math.random() * (int) w) / 3;
+        int pRandy = (int) (Math.random() * (int) h) / 3;
+
         currentScore = 0;
 
         setBackground(Color.black);
         enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
+        enemySquare.get(0).setPanelWidth((int)w);
+        enemySquare.get(0).bounce();
+
 
         player = new Player("default.png",pRandx,pRandy);
         player.setSpeed(10);
         timer = new Timer(30, this);
         enemyTimer = new Timer(30, this);
+
+
         timer.start();
         enemyTimer.start();
 
@@ -72,8 +76,8 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
         }
 
         repaint();
-        currentScore++;
-        //start bouncing
+        //currentScore++;
+       enemySquare.get(0).bounce();
     }
 
     //if player intersects enemy end game
@@ -91,7 +95,6 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
     }
 
 
-
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == 27)
@@ -99,11 +102,6 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
 
         if(isRunning) {
             switch (e.getKeyCode()) {
-
-//                case KeyEvent.VK_ENTER:
-//
-//                    isRunning = true;
-//                    break;
 
                 case KeyEvent.VK_SPACE:
                     //shoot / attack
@@ -174,8 +172,9 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
         isRunning = false;
         timer.stop();
         //clear enemies
-        player.setX(pRandx);
-        player.setY(pRandy);
+        //reset random location
+        player.setX((int) (Math.random() * (int) w) / 2);
+        player.setY((int) (Math.random() * (int) h) / 2);
     }
     @Override
     public int getPoints() {
