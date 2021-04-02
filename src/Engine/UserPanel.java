@@ -38,14 +38,15 @@ double h = screen.getHeight();
 
 //rand spawn player
 private int pRandx = (int) (Math.random() * (int) w) / 3;
-private int pRandy = (int) (Math.random() * (int) w) / 3;
+private int pRandy = (int) (Math.random() * (int) h) / 3;
 
 
 //rand spawn Eneny
 
     public UserPanel() {
-        setBackground(Color.BLACK);
-        //player = new Player("default.png");
+        currentScore = 0;
+
+        setBackground(Color.black);
         enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
 
         player = new Player("default.png",pRandx,pRandy);
@@ -68,14 +69,16 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
         if(checkCollision()){
             isRunning = false;
         }
-        repaint();
-    }
-    public boolean checkCollision() {
-        //TODO - if player intersects enemy end game
 
+        repaint();
+        currentScore++;
+        //start bouncing
+    }
+
+    //if player intersects enemy end game
+    public boolean checkCollision() {
         Rectangle e = enemySquare.get(0).getBounds();
         Rectangle p = player.getBounds();
-
         if (p.intersects(e)){
            return true;
         }else {
@@ -91,11 +94,8 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     }
 
 
-    public void calcPoint(){
-        if(isRunning = true){
-            currentScore = timer.getInitialDelay();
-        }
-    }
+
+
 
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
@@ -103,26 +103,6 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);
         }
-            //regular movement
-//        if(e.getKeyCode() == KeyEvent.VK_W){
-//            player.moveUp();
-//        } if(e.getKeyCode() == KeyEvent.VK_D){
-//            player.moveRight();
-//        } if(e.getKeyCode() == KeyEvent.VK_A){
-//            player.moveLeft();
-//        } if(e.getKeyCode() == KeyEvent.VK_S) {
-//            player.moveDown();
-//        }
-         //diagonal
-//        } if(e.getKeyCode() == KeyEvent.VK_W){
-//            if(e.getKeyCode() == KeyEvent.VK_D) {
-//                player.moveUp();
-//                player.moveRight();
-//            }
-//        }if(e.getKeyCode() == KeyEvent.VK_W && e.getKeyCode() == KeyEvent.VK_A){
-//            player.moveUp();
-//            player.moveLeft();
-//        }
 
         if(isRunning) {
             switch (e.getKeyCode()) {
@@ -212,17 +192,17 @@ private int pRandy = (int) (Math.random() * (int) w) / 3;
     public int getPoints() {
         return currentScore;
     }
-
     @Override
     public void setDisplay(GameStats d) {
         if(isRunning){
-            d.update(getPoints());
+            d.update(getX());
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) { }
     public void keyTyped(KeyEvent keyEvent) {}
+
     //thread for sound if needed
     @Override
     public void run() {

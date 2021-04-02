@@ -29,11 +29,11 @@ Color color;
         this.h = h;
         this.color = color;
     }
-    public EnemySquare(){ //sets cords
-        this.x = x;
-        this.y = y;
-        this.color = color;
+    public EnemySquare(int w, int h){ //sets cords
+        this.w = w;
+        this.h = h;
     }
+
     public EnemySquare(Color color){ //sets cords
         this.x = x;
         this.y = y;
@@ -86,9 +86,6 @@ Color color;
     public Rectangle getBounds(){
         return (new Rectangle(x,y,w,h));
     }
-
-
-
 
 
 }
