@@ -22,7 +22,8 @@ private Timer enemyTimer;
 //music
 // needs to be run on separate thread
 //wont render graphics if loop = true
-private MusicManager musicManager;
+//even if loop is not true the audio will still play before rendering graphics
+//private MusicManager musicManager;
 
 //Entities
 private Player player;
@@ -79,11 +80,7 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
     public boolean checkCollision() {
         Rectangle e = enemySquare.get(0).getBounds();
         Rectangle p = player.getBounds();
-        if (p.intersects(e)){
-           return true;
-        }else {
-            return false;
-        }
+        return p.intersects(e);
     }
 
 
@@ -95,14 +92,10 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
 
 
 
-
-
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()){
-            case KeyEvent.VK_ESCAPE:
-                System.exit(0);
-        }
+        if (e.getKeyCode() == 27)
+            System.exit(0);
 
         if(isRunning) {
             switch (e.getKeyCode()) {
@@ -143,11 +136,7 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
 
     @Override
     public boolean running() {
-        if(isRunning){
-            return true;
-        }else {
-            return false;
-        }
+        return isRunning;
     }
     @Override
     public void startGame() {
@@ -195,7 +184,7 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
     @Override
     public void setDisplay(GameStats d) {
         if(isRunning){
-            d.update(getX());
+            d.update(getPoints());
         }
     }
 
@@ -212,7 +201,7 @@ private int pRandy = (int) (Math.random() * (int) h) / 3;
 //allows you to drag charter copied from example
     private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
         public void mouseDragged(MouseEvent e){
-            if(isRunning == true){
+            if(isRunning){
                 player.move2(e.getY(), player.getWidth());
                player.move1(e.getX(), player.getHeight());
             }

@@ -10,14 +10,13 @@ import java.io.IOException;
 public class EnemySquare extends JPanel {
 
 
-    //image stuff
     //cords
 private int x,y,w,h;
 
 private int speed = 10;
 Color color;
 
-//random stuff
+//random color
 //private int colorCode = (int) (Math.random() * 255 + 1);
 
 
