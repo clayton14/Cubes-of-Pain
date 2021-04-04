@@ -29,34 +29,36 @@ private Timer enemyTimer;
 //Entities
 private Player player;
 
+//list of enemies
 private ArrayList<EnemySquare> enemySquare = new ArrayList<EnemySquare>();
 
- //EnemySquare enemySquare = new EnemySquare(100, 100, 10,80, Color.GREEN);
+//EnemySquare enemySquare = new EnemySquare(100, 100, 10,80, Color.GREEN);
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-double w = screen.getWidth();
-double h = screen.getHeight();
+double ScreenWith = screen.getWidth();
+double ScreenHeight = screen.getHeight();
 
 //rand spawn playe
 //rand spawn Eneny
 
     public UserPanel() {
-        int pRandx = (int) (Math.random() * (int) w) / 3;
-        int pRandy = (int) (Math.random() * (int) h) / 3;
+        int pRandx = (int) (Math.random() * (int) ScreenWith) / 3;
+        int pRandy = (int) (Math.random() * (int) ScreenHeight) / 3;
 
         points = 0;
 
         setBackground(Color.black);
         enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
-        enemySquare.get(0).setPanelWidth((int)w);
+        enemySquare.get(0).setPanelWidth((int)ScreenWith);
         enemySquare.get(0).bounce();
 
 
         player = new Player("default.png",pRandx,pRandy);
+
         player.setSpeed(10);
-        timer = new Timer(30, this);
-        enemyTimer = new Timer(30, new EnemyAnimationListener());
+        timer = new Timer(10, this);
+        enemyTimer = new Timer(0, new EnemyAnimationListener());
 
 
         timer.start();
@@ -71,15 +73,21 @@ double h = screen.getHeight();
     }
 
 
+    public void SpawnEnemy(){
+        //TODO spawn new enemy based off score with random spawn
+
+
+    }
+
+
     public void actionPerformed(ActionEvent e) {
         if(checkCollision()){
             isRunning = false;
         }
         repaint();
+        //screenBounds();
         points++;
     }
-
-
 
     //if player intersects enemy end game
     public boolean checkCollision() {
@@ -94,8 +102,26 @@ double h = screen.getHeight();
         player.draw(g);
         enemySquare.get(0).draw(g);
         //getPoints();
+        screenBounds();
     }
 
+
+    public void screenBounds(){
+        if(player.getX() > (int)ScreenWith){
+            player.setX(((int)ScreenWith));
+        }else if(player.getX() < 0){
+            player.setX(0);
+
+        }else if(player.getY() > (int)ScreenWith){
+            player.setY((int)ScreenWith);
+        }else if(player.getY() < 0){
+            player.setY(0);
+            //-200 because of menu
+        }else if(player.getY() > ((int) ScreenHeight -200)){
+            player.setY(((int)ScreenHeight -200));
+        }
+
+    }
 
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
@@ -133,7 +159,6 @@ double h = screen.getHeight();
             }
         }
     }
-
     @Override
     public boolean running() {
         return isRunning;
@@ -176,8 +201,8 @@ double h = screen.getHeight();
         enemyTimer.stop();
         //clear enemies
         //reset random location
-        player.setX((int) (Math.random() * (int) w) / 2);
-        player.setY((int) (Math.random() * (int) h) / 2);
+        player.setX((int) (Math.random() * (int) ScreenWith / 2));
+        player.setY((int) (Math.random() * (int) ScreenHeight) / 2);
     }
     @Override
     public int getPoints() {
@@ -187,18 +212,15 @@ double h = screen.getHeight();
     public void setDisplay(GameStats d) {
         if(isRunning){
             d.update(getPoints());
-
         }
     }
-
     @Override
-    public void keyReleased(KeyEvent keyEvent) { }
+    public void keyReleased(KeyEvent keyEvent) {}
     public void keyTyped(KeyEvent keyEvent) {}
 
     //thread for sound if needed
     @Override
     public void run() {
-
     }
 
 //allows you to drag charter copied from example

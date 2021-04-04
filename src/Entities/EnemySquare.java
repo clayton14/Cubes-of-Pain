@@ -88,6 +88,8 @@ private static Color color;
 
 
     public void bounce(){
+        //TODO get the Enemy to bounce off the walls of the screen
+
         int xVal = getX();
 
 
