@@ -15,6 +15,7 @@ private boolean isRunning = false;
 
 int points;
 int highScore;
+int numOfEntities;
 
 //timers
 private Timer timer;
@@ -42,6 +43,7 @@ double ScreenHeight = screen.getHeight();
 //rand spawn Eneny
 
     public UserPanel() {
+        //random spawn point for Player (Player random x and Enemy Player y)\
         int pRandx = (int) (Math.random() * (int) ScreenWith) / 3;
         int pRandy = (int) (Math.random() * (int) ScreenHeight) / 3;
 
@@ -54,14 +56,12 @@ double ScreenHeight = screen.getHeight();
 
 
         player = new Player("default.png",pRandx,pRandy);
-        spawnEnemy(isRunning);
 
         player.setSpeed(10);
         timer = new Timer(30, this);
         enemyTimer = new Timer(30, new EnemyAnimationListener());
 
-        spawnEnemy(isRunning);
-
+       // spawnEnemy(isRunning);
         timer.start();
         enemyTimer.start();
 
@@ -76,31 +76,36 @@ double ScreenHeight = screen.getHeight();
 
     public void spawnEnemy(boolean flag){
         //TODO spawn new enemy based off score with random spawn
-        while (flag){
-            int cnt = 0;
-            if (points % 200 == 0){
-                enemySquare.add(cnt,new EnemySquare(Color.red));
-                cnt++;
-            }
+
+
+        //random spawn point for Enemy (Enemy random x and Enemy random y)
+        int eRandx = (int) (Math.random() * (int) ScreenWith) / 2;
+        int eRandy = (int) (Math.random() * (int) ScreenHeight) / 2;
+
+           if(flag) {
+               if (points % 100 == 0) {
+                   enemySquare.add(new EnemySquare(Color.red,eRandx,eRandy,20,20));
+                   numOfEntities++;
+               }
+           }
 
         }
-
-    }
 
 
     public void actionPerformed(ActionEvent e) {
         if(checkCollision()){
             isRunning = false;
         }
+        spawnEnemy(isRunning);
         repaint();
-        //screenBounds();
         points++;
     }
+
 
     //if player intersects enemy end game
     public boolean checkCollision() {
         Rectangle e = new Rectangle();
-        for (int i = 0; i < enemySquare.size(); i++) {
+        for (int i = 0; i < numOfEntities; i++) {
            e = enemySquare.get(i).getBounds();
         }
         Rectangle p = player.getBounds();
@@ -112,12 +117,13 @@ double ScreenHeight = screen.getHeight();
         super.paintComponent(g);
         player.draw(g);
 
-        for (int i = 0; i < enemySquare.size(); i++) {
+        for (int i = 0; i < numOfEntities; i++) {
             enemySquare.get(i).draw(g);
         }
         //getPoints();
         screenBounds();
     }
+
 
     public void screenBounds(){
         if(player.getX() > (int)ScreenWith){
@@ -135,6 +141,8 @@ double ScreenHeight = screen.getHeight();
         }
 
     }
+
+    //interface stuff
 
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
@@ -232,20 +240,25 @@ double ScreenHeight = screen.getHeight();
     public void keyReleased(KeyEvent keyEvent) {}
     public void keyTyped(KeyEvent keyEvent) {}
 
+
+
     //thread for sound if needed
     @Override
     public void run() {
     }
 
+
+
+
 //allows you to drag charter copied from example
-    private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
-        public void mouseDragged(MouseEvent e){
-            if(isRunning){
-                player.move2(e.getY(), player.getWidth());
-               player.move1(e.getX(), player.getHeight());
-            }
+private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
+    public void mouseDragged(MouseEvent e){
+        if(isRunning){
+            player.move2(e.getY(), player.getWidth());
+           player.move1(e.getX(), player.getHeight());
         }
     }
+}
 
 //listener for enemy
 private class EnemyAnimationListener implements ActionListener{
@@ -253,7 +266,9 @@ private class EnemyAnimationListener implements ActionListener{
     //Because we are implementing ActionListener, we must define actionPerformed
     public void actionPerformed (ActionEvent e){
         if (isRunning) {
-            enemySquare.get(0).bounce();
+            for (int i = 0; i < numOfEntities ; i++) {
+                enemySquare.get(i).bounce();
+            }
             points++;
         }
     }
