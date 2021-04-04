@@ -67,6 +67,7 @@ public abstract class Enemy extends JPanel {
         this.speed = speed;
     }
 
+
     public void setColor(Color color) {
         Enemy.color = color;
     }
