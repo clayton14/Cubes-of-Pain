@@ -28,6 +28,7 @@ private double ScreenHeight = screen.getHeight();
        this.x = x;
        this.y = y;
         charter = null;
+        setDoubleBuffered(true);
 
         try {
             charter = ImageIO.read(new File(file.getAbsolutePath()));
@@ -42,6 +43,8 @@ private double ScreenHeight = screen.getHeight();
     public Player (String imgName){ //cords
         file = new File(imgName);
         charter = null;
+        setDoubleBuffered(true);
+
         try {
             charter = ImageIO.read(new File(file.getAbsolutePath()));
         } catch (IOException e) {

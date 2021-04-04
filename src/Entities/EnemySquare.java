@@ -29,16 +29,20 @@ private static Color color;
         this.w = w;
         this.h = h;
         this.color = color;
+        setDoubleBuffered(true);
     }
     public EnemySquare(int w, int h){ //sets cords
         this.w = w;
         this.h = h;
+        setDoubleBuffered(true);
+
     }
 
     public EnemySquare(Color color){ //sets cords
         this.x = x;
         this.y = y;
         this.color = color;
+        setDoubleBuffered(true);
     }
 
 
@@ -59,6 +63,7 @@ private static Color color;
     public void setPanelWidth(int pWidth) {
        panelWidth = pWidth;
     }
+
 
     //setters
     public void setX(int x) { this.x = x; }

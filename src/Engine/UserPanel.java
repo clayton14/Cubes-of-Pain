@@ -32,7 +32,6 @@ private Player player;
 //list of enemies
 private ArrayList<EnemySquare> enemySquare = new ArrayList<EnemySquare>();
 
-//EnemySquare enemySquare = new EnemySquare(100, 100, 10,80, Color.GREEN);
 
 //resolution stuff
 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -49,17 +48,19 @@ double ScreenHeight = screen.getHeight();
         points = 0;
 
         setBackground(Color.black);
-        enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
-        enemySquare.get(0).setPanelWidth((int)ScreenWith);
-        enemySquare.get(0).bounce();
+        //enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
+        //enemySquare.get(0).setPanelWidth((int)ScreenWith);
+        //enemySquare.get(0).bounce();
 
 
         player = new Player("default.png",pRandx,pRandy);
+        spawnEnemy(isRunning);
 
         player.setSpeed(10);
-        timer = new Timer(10, this);
-        enemyTimer = new Timer(0, new EnemyAnimationListener());
+        timer = new Timer(30, this);
+        enemyTimer = new Timer(30, new EnemyAnimationListener());
 
+        spawnEnemy(isRunning);
 
         timer.start();
         enemyTimer.start();
@@ -73,9 +74,16 @@ double ScreenHeight = screen.getHeight();
     }
 
 
-    public void SpawnEnemy(){
+    public void spawnEnemy(boolean flag){
         //TODO spawn new enemy based off score with random spawn
+        while (flag){
+            int cnt = 0;
+            if (points % 200 == 0){
+                enemySquare.add(cnt,new EnemySquare(Color.red));
+                cnt++;
+            }
 
+        }
 
     }
 
@@ -91,7 +99,10 @@ double ScreenHeight = screen.getHeight();
 
     //if player intersects enemy end game
     public boolean checkCollision() {
-        Rectangle e = enemySquare.get(0).getBounds();
+        Rectangle e = new Rectangle();
+        for (int i = 0; i < enemySquare.size(); i++) {
+           e = enemySquare.get(i).getBounds();
+        }
         Rectangle p = player.getBounds();
         return p.intersects(e);
     }
@@ -100,11 +111,13 @@ double ScreenHeight = screen.getHeight();
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         player.draw(g);
-        enemySquare.get(0).draw(g);
+
+        for (int i = 0; i < enemySquare.size(); i++) {
+            enemySquare.get(i).draw(g);
+        }
         //getPoints();
         screenBounds();
     }
-
 
     public void screenBounds(){
         if(player.getX() > (int)ScreenWith){
@@ -199,10 +212,12 @@ double ScreenHeight = screen.getHeight();
         isRunning = false;
         timer.stop();
         enemyTimer.stop();
+        points = 0;
         //clear enemies
+
         //reset random location
-        player.setX((int) (Math.random() * (int) ScreenWith / 2));
-        player.setY((int) (Math.random() * (int) ScreenHeight) / 2);
+        player.setX((int) (Math.random() * (int) ScreenWith / 3));
+        player.setY((int) (Math.random() * (int) ScreenHeight) / 3);
     }
     @Override
     public int getPoints() {
@@ -210,9 +225,8 @@ double ScreenHeight = screen.getHeight();
     }
     @Override
     public void setDisplay(GameStats d) {
-        if(isRunning){
-            d.update(getPoints());
-        }
+        d.update(getPoints());
+
     }
     @Override
     public void keyReleased(KeyEvent keyEvent) {}
