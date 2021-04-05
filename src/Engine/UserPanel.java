@@ -9,13 +9,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener, Runnable {
+public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener {
 
 private boolean isRunning = false;
 
 int points;
 int highScore;
 int numOfEntities;
+
+//Threads
+private Thread enemyThread;
+private Thread soundThread;
 
 //timers
 private Timer timer;
@@ -39,8 +43,8 @@ Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 double ScreenWith = screen.getWidth();
 double ScreenHeight = screen.getHeight();
 
-//rand spawn playe
-//rand spawn Eneny
+//rand spawn player
+//rand spawn Enemy
 
     public UserPanel() {
         //random spawn point for Player (Player random x and Enemy Player y)\
@@ -48,17 +52,17 @@ double ScreenHeight = screen.getHeight();
         int pRandy = (int) (Math.random() * (int) ScreenHeight) / 3;
 
         points = 0;
-
         setBackground(Color.black);
         //enemySquare.add(0 , new EnemySquare(Color.GREEN, 20,20,20,20));
         //enemySquare.get(0).setPanelWidth((int)ScreenWith);
         //enemySquare.get(0).bounce();
 
-
         player = new Player("default.png",pRandx,pRandy);
 
-        player.setSpeed(10);
+        player.setSpeed(25);
         timer = new Timer(30, this);
+
+
         enemyTimer = new Timer(30, new EnemyAnimationListener());
 
        // spawnEnemy(isRunning);
@@ -75,16 +79,16 @@ double ScreenHeight = screen.getHeight();
 
 
     public void spawnEnemy(boolean flag){
+
         //TODO spawn new enemy based off score with random spawn
 
-
         //random spawn point for Enemy (Enemy random x and Enemy random y)
-        int eRandx = (int) (Math.random() * (int) ScreenWith) / 2;
-        int eRandy = (int) (Math.random() * (int) ScreenHeight) / 2;
+        int eRandx = (int) (Math.random() * (int) ScreenWith) ;
+        int eRandy = (int) (Math.random() * (int) ScreenHeight);
 
            if(flag) {
                if (points % 100 == 0) {
-                   enemySquare.add(new EnemySquare(Color.red,eRandx,eRandy,20,20));
+                   enemySquare.add(new EnemySquare(Color.GREEN,eRandx,eRandy,20,20));
                    numOfEntities++;
                }
            }
@@ -222,7 +226,8 @@ double ScreenHeight = screen.getHeight();
         enemyTimer.stop();
         points = 0;
         //clear enemies
-
+         enemySquare.clear();
+         numOfEntities=0;
         //reset random location
         player.setX((int) (Math.random() * (int) ScreenWith / 3));
         player.setY((int) (Math.random() * (int) ScreenHeight) / 3);
@@ -243,9 +248,7 @@ double ScreenHeight = screen.getHeight();
 
 
     //thread for sound if needed
-    @Override
-    public void run() {
-    }
+
 
 
 
