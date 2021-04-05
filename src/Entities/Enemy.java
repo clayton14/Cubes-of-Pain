@@ -50,24 +50,18 @@ public abstract class Enemy extends JPanel {
     public void setW(int w) {
         this.w = w;
     }
-
     public void setH(int h) {
         this.h = h;
     }
-
     public void setDirection(int direction) {
         this.direction = direction;
     }
-
     public void setPanelWidth(int panelWidth) {
         Enemy.panelWidth = panelWidth;
     }
-
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-
     public void setColor(Color color) {
         Enemy.color = color;
     }

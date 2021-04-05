@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener {
+public class UserPanel extends JPanel implements JavaArcade, KeyListener, ActionListener{
 
 private boolean isRunning = false;
 
@@ -78,6 +78,10 @@ double ScreenHeight = screen.getHeight();
     }
 
 
+    public void run() {}
+
+
+
     public void spawnEnemy(boolean flag){
 
         //TODO spawn new enemy based off score with random spawn
@@ -89,11 +93,11 @@ double ScreenHeight = screen.getHeight();
            if(flag) {
                if (points % 100 == 0) {
                    enemySquare.add(new EnemySquare(Color.GREEN,eRandx,eRandy,20,20));
+                   enemySquare.get(numOfEntities).setPanelWidth((int)ScreenWith);
                    numOfEntities++;
                }
            }
-
-        }
+    }
 
 
     public void actionPerformed(ActionEvent e) {
@@ -204,7 +208,7 @@ double ScreenHeight = screen.getHeight();
     }
     @Override
     public String getInstructions() {
-        return "movement: WASD\nAttack: space\nEsc: close game\nDOGE THE SQUARES";
+        return "movement: WASD, Drag Mouse\nEsc: close game\nDOGE THE SQUARES";
     }
     @Override
     public String getCredits() {
@@ -244,6 +248,7 @@ double ScreenHeight = screen.getHeight();
     @Override
     public void keyReleased(KeyEvent keyEvent) {}
     public void keyTyped(KeyEvent keyEvent) {}
+
 
 
 

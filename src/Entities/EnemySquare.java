@@ -8,7 +8,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public class EnemySquare extends Enemy {
+public class EnemySquare extends Enemy implements Runnable{
 
 
     //cords
@@ -32,6 +32,7 @@ public class EnemySquare extends Enemy {
         this.h = h;
         this.color = color;
         setDoubleBuffered(true);
+
     }
 
     public EnemySquare(int w, int h) { //sets cords
@@ -121,65 +122,64 @@ public class EnemySquare extends Enemy {
     }
 
     //TODO get the Enemy to bounce off the walls of the screen
-    public void bounce(){
-         e = new Thread() {
-            @Override
-            public void run() {
-                while (true) { // Execute one update step
-                    // Calculate the ball's new position
-                    x += speedX;
-                    y += speedY;
-                    // Check if the ball moves over the bounds
-                    // If so, adjust the position and speed.
-                    if (x - w < 0) {
-                        speedX = -speedX; // Reflect along normal
-                        x = w; // Re-position the ball at the edge
-                    } else if (x + w > panelWidth) {
-                        speedX = -speedX;
-                        x = panelWidth - w;
-                    }
-                    // May cross both x and y bounds
-                    if (y - w < 0) {
-                        speedY = -y;
-                        y = w;
-                    } else if (y + w > panelWidth) {
-                        speedY = -speedY;
-                        y = panelHeight - w;
-                    }
-                    // Refresh the display
-                    repaint(); // Callback paintComponent()
-                    //Delay for timing control and give other threads a chance
-                    try {
-                        Thread.sleep(1000 / 10);  // milliseconds
-                    } catch (InterruptedException ex) {
-
-                }
-            }
-        }
-    };
-}
+    @Override
+    public void run(){bounce();}
 
 
-//    public void bounce() {
-//
-//        int xVal = getX();
-//
-//        if (xVal + getWidth() > panelWidth) {  //include getWidth() so we bounce off on the right edge
-//
-//            direction = 0; //negative;
-//            xVal -= speedX;
-//        } else if (xVal < 0) {
-//
-//            xVal += speedX;
-//            direction = 1; //positive
-//        } else {
-//            if (direction == 1)
-//                xVal += speedX;
-//            else
-//                xVal -= speedX;
+//public void bounce() {
+//    while (true) { // Execute one update step
+//        // Calculate the ball's new position
+//        x += speedX;
+//        y += speedY;
+//        // Check if the ball moves over the bounds
+//        // If so, adjust the position and speed.
+//        if (x - w < 0) {
+//            speedX = -speedX; // Reflect along normal
+//            x = w; // Re-position the ball at the edge
+//        } else if (x + w > panelWidth) {
+//            speedX = -speedX;
+//            x = panelWidth - w;
 //        }
-//        setX(xVal); //Sets the xPosition of the enemy so that when enemy is drawn this is the xPos of the left corner
+//        // May cross both x and y bounds
+//        if (y - w < 0) {
+//            speedY = -y;
+//            y = w;
+//        } else if (y + w > panelWidth) {
+//            speedY = -speedY;
+//            y = panelHeight - w;
+//        }
+//        // Refresh the display
+//        repaint(); // Callback paintComponent()
+//        //Delay for timing control and give other threads a chance
+//        try {
+//            Thread.sleep(1000 / 10);  // milliseconds
+//        } catch (InterruptedException ex) {
+//
+//            }
+//        }
 //    }
+
+
+    public void bounce() {
+
+        int xVal = getX();
+
+        if (xVal + getWidth() > panelWidth) {  //include getWidth() so we bounce off on the right edge
+
+            direction = 0; //negative;
+            xVal -= speedX;
+        } else if (xVal < 0) {
+
+            xVal += speedX;
+            direction = 1; //positive
+        } else {
+            if (direction == 1)
+                xVal += speedX;
+            else
+                xVal -= speedX;
+        }
+        setX(xVal); //Sets the xPosition of the enemy so that when enemy is drawn this is the xPos of the left corner
+    }
 
     public Rectangle getBounds(){
         return (new Rectangle(x,y,w,h));
