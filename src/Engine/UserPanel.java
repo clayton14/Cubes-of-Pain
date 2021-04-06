@@ -58,8 +58,6 @@ double ScreenHeight = screen.getHeight();
 
         player.setSpeed(25);
         timer = new Timer(30, this);
-
-
         enemyTimer = new Timer(30, new EnemyAnimationListener());
 
        // spawnEnemy(isRunning);
@@ -76,13 +74,13 @@ double ScreenHeight = screen.getHeight();
     }
 
 //Threads
-    Thread thread2 = new Thread(){
-    @Override
-    public void run() {
-        spawnEnemy(isRunning);
-        checkCollision();
-    }
-};
+//    Thread thread2 = new Thread(){
+//    @Override
+//    public void run() {
+//        spawnEnemy(isRunning);
+//        checkCollision();
+//    }
+//};
 
 
     public void spawnEnemy(boolean flag){
@@ -116,14 +114,15 @@ double ScreenHeight = screen.getHeight();
 //if player intersects enemy end game
     public boolean checkCollision() {
         boolean x = false;
-        for (int i = 0; i > numOfEntities; i++) {//loop dose not check fast enough
-            Rectangle e = new Rectangle();
+        for (int i = 0; i < enemySquare.size(); i++) {//loop dose not check fast enough
             Rectangle p = player.getBounds();
-            e = enemySquare.get(i).getBounds();
+            System.out.println("test");
+            System.out.println(numOfEntities);
+            Rectangle e = enemySquare.get(i).getBounds();
             if (p.intersects(e)) {
-                x= false;
+                return true;
             } else
-                x= true;
+                x=false;
         }
         return x;
     }
@@ -202,7 +201,7 @@ double ScreenHeight = screen.getHeight();
     @Override
     public void startGame() {
          isRunning = true;
-        thread2.start();
+        //thread2.start();
          timer.start();
          enemyTimer.start();
     }
@@ -233,7 +232,7 @@ double ScreenHeight = screen.getHeight();
     }
     @Override
     public void stopGame() {
-        thread2.interrupt();
+        //thread2.interrupt();
         isRunning = false;
         timer.stop();
         enemyTimer.stop();
@@ -252,7 +251,6 @@ double ScreenHeight = screen.getHeight();
     @Override
     public void setDisplay(GameStats d) {
         d.update(getPoints());
-
     }
     @Override
     public void keyReleased(KeyEvent keyEvent) {}

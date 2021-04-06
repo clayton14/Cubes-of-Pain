@@ -8,7 +8,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public class EnemySquare extends Enemy implements Runnable{
+public class EnemySquare extends Enemy{
 
 
     //cords
@@ -25,20 +25,21 @@ public class EnemySquare extends Enemy implements Runnable{
 
 
     //constructors
-    public EnemySquare(Color color, int x, int y, int w, int h) { //sets cords
+    public EnemySquare(Color color, int x, int y, int w, int h) {
+        //sets cords
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.color = color;
-        setDoubleBuffered(true);
+        //setDoubleBuffered(true);
 
     }
 
     public EnemySquare(int w, int h) { //sets cords
         this.w = w;
         this.h = h;
-        setDoubleBuffered(true);
+        //setDoubleBuffered(true);
 
     }
 
@@ -46,7 +47,7 @@ public class EnemySquare extends Enemy implements Runnable{
         this.x = x;
         this.y = y;
         this.color = color;
-        setDoubleBuffered(true);
+        //setDoubleBuffered(true);
     }
 
 
@@ -122,8 +123,8 @@ public class EnemySquare extends Enemy implements Runnable{
     }
 
     //TODO get the Enemy to bounce off the walls of the screen
-    @Override
-    public void run(){bounce();}
+//    @Override
+//    public void run(){bounce();}
 
 
 //public void bounce() {
@@ -184,6 +185,5 @@ public class EnemySquare extends Enemy implements Runnable{
     public Rectangle getBounds(){
         return (new Rectangle(x,y,w,h));
     }
-
 
 }
