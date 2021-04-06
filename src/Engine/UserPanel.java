@@ -17,9 +17,6 @@ int points;
 int highScore;
 int numOfEntities;
 
-//Threads
-private Thread enemyThread;
-private Thread soundThread;
 
 //timers
 private Timer timer;
@@ -69,6 +66,7 @@ double ScreenHeight = screen.getHeight();
         timer.start();
         enemyTimer.start();
 
+
         //listeners
         addKeyListener(this);
         addMouseMotionListener(new PanelMotionListener()); //used to listen to mouse events
@@ -77,9 +75,14 @@ double ScreenHeight = screen.getHeight();
 
     }
 
-
-    public void run() {}
-
+//Threads
+    Thread thread2 = new Thread(){
+    @Override
+    public void run() {
+        spawnEnemy(isRunning);
+        checkCollision();
+    }
+};
 
 
     public void spawnEnemy(boolean flag){
@@ -99,7 +102,7 @@ double ScreenHeight = screen.getHeight();
            }
     }
 
-
+//Action listener
     public void actionPerformed(ActionEvent e) {
         if(checkCollision()){
             isRunning = false;
@@ -110,17 +113,22 @@ double ScreenHeight = screen.getHeight();
     }
 
 
-    //if player intersects enemy end game
+//if player intersects enemy end game
     public boolean checkCollision() {
-        Rectangle e = new Rectangle();
-        for (int i = 0; i < numOfEntities; i++) {
-           e = enemySquare.get(i).getBounds();
+        boolean x = false;
+        for (int i = 0; i > numOfEntities; i++) {//loop dose not check fast enough
+            Rectangle e = new Rectangle();
+            Rectangle p = player.getBounds();
+            e = enemySquare.get(i).getBounds();
+            if (p.intersects(e)) {
+                x= false;
+            } else
+                x= true;
         }
-        Rectangle p = player.getBounds();
-        return p.intersects(e);
+        return x;
     }
 
-
+//repaints the screen
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         player.draw(g);
@@ -132,7 +140,7 @@ double ScreenHeight = screen.getHeight();
         screenBounds();
     }
 
-
+//stops the charter from going off screen
     public void screenBounds(){
         if(player.getX() > (int)ScreenWith){
             player.setX(((int)ScreenWith));
@@ -151,7 +159,6 @@ double ScreenHeight = screen.getHeight();
     }
 
     //interface stuff
-
     // control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == 27)
@@ -195,6 +202,7 @@ double ScreenHeight = screen.getHeight();
     @Override
     public void startGame() {
          isRunning = true;
+        thread2.start();
          timer.start();
          enemyTimer.start();
     }
@@ -225,6 +233,7 @@ double ScreenHeight = screen.getHeight();
     }
     @Override
     public void stopGame() {
+        thread2.interrupt();
         isRunning = false;
         timer.stop();
         enemyTimer.stop();
@@ -251,13 +260,6 @@ double ScreenHeight = screen.getHeight();
 
 
 
-
-    //thread for sound if needed
-
-
-
-
-
 //allows you to drag charter copied from example
 private class PanelMotionListener extends MouseMotionAdapter {//mouse dragged action that controls where slider is
     public void mouseDragged(MouseEvent e){
@@ -280,6 +282,7 @@ private class EnemyAnimationListener implements ActionListener{
             points++;
         }
     }
+
 }
 
 
