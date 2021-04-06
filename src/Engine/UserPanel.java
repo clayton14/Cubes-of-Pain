@@ -157,8 +157,8 @@ double ScreenHeight = screen.getHeight();
 
     }
 
-    //interface stuff
-    // control player and actions w/ keyboard
+//interface stuff
+// control player and actions w/ keyboard
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == 27)
             System.exit(0);
