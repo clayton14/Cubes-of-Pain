@@ -2,7 +2,6 @@ package Engine;
 
 import Entities.EnemySquare;
 import Entities.Player;
-import sounds.MusicManager;
 
 import javax.swing.*;
 import java.awt.*;

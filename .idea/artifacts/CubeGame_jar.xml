@@ -1,10 +1,8 @@
 <component name="ArtifactManager">
-  <artifact name="CubeGame:jar">
+  <artifact type="jar" name="CubeGame:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/CubeGame_jar</output-path>
-    <root id="root">
-      <element id="archive" name="CubeGame.jar">
-        <element id="module-output" name="CubeGame" />
-      </element>
+    <root id="archive" name="CubeGame.jar">
+      <element id="module-output" name="CubeGame" />
     </root>
   </artifact>
 </component>
